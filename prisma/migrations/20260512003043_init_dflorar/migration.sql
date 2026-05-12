@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE `Order` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `namaPelanggan` VARCHAR(191) NOT NULL,
+    `totalHarga` INTEGER NOT NULL,
+    `status` VARCHAR(191) NOT NULL DEFAULT 'PENDING',
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
