@@ -26,3 +26,12 @@ model Order {
   totalHarga  Int
   status  String  @default("PENDING")
 }
+
+model User {
+  id  Int   @id @default(autoincrement())
+  email   String
+  name    String
+  password    String
+  createsAt DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
