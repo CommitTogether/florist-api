@@ -1,13 +1,23 @@
 const { PrismaClient } = require("@prisma/client");
+// import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 //index
 const getAllBouquets = async (req, res) => {
   try {
     const bouquets = await prisma.bouquet.findMany();
-    res.json(bouquets);
+    res.status(200).json({
+      status: "success",
+      message: "Data berhasil diambil",
+      data: bouquets,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error saat mengambil data" });
+    // res.status(500).json({ message: "Error saat mengambil data", error: error.message });
+    res.status(500).json({
+      status: "error",
+      message: "Error saat mengambil data",
+      error: error.message
+    });
   }
 };
 
@@ -17,9 +27,26 @@ const getByIdBouquet = async (req, res) => {
     const bouquet = await prisma.bouquet.findUnique({
       where: { id: Number(req.params.id) },
     });
-    res.json(bouquet);
+
+    if (!bouquet) {
+      return res.status(404).json({
+        status: "error",
+        message: "Data tidak ditemukan",
+        data: null
+      });
+    };
+
+    res.status(200).json({
+      status: "success",
+      message: "Data berhasil diambil",
+      data: bouquet
+    });
   } catch (error) {
-    res.status(500).json({ message: "data tidak ditemukan" });
+    res.status(500).json({
+      status: "error",
+      message: "Error saat mengambil data",
+      error: error.message
+    });
   }
 };
 
@@ -30,9 +57,17 @@ const createBouquet = async (req, res) => {
     const bouquet = await prisma.bouquet.create({
       data: { nama, harga, stok, deskripsi },
     });
-    res.json(bouquet);
+    res.status(201).json({
+      status: "success",
+      message: "Data berhasil dibuat",
+      data: bouquet
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error saat membuat data" });
+    res.status(500).json({
+      status: "error",
+      message: "Error saat membuat data",
+      error: error.message
+    });
   }
 };
 
@@ -44,9 +79,17 @@ const updateBouquet = async (req, res) => {
       where: { id: Number(req.params.id) },
       data: { nama, harga, stok, deskripsi },
     });
-    res.json(bouquet);
+    res.status(200).json({
+      status: "success",
+      message: "Data berhasil diupdate",
+      data: bouquet
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error saat mengupdate data" });
+    res.status(500).json({
+      status: "error",
+      message: "Error saat mengupdate data",
+      error: error.message
+    });
   }
 };
 
@@ -56,9 +99,16 @@ const deleteBouquet = async (req, res) => {
     await prisma.bouquet.delete({
       where: { id: Number(req.params.id) },
     });
-    res.json({ message: "Berhasil dihapus" }); // ← pindah ke sini
+    res.status(200).json({
+      status: "success",
+      message: "Data berhasil dihapus"
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error saat menghapus data" });
+    res.status(500).json({
+      status: "error",
+      message: "Error saat menghapus data",
+      error: error.message
+    });
   }
 };
 
