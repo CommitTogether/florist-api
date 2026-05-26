@@ -112,6 +112,8 @@ const deleteBouquet = async (req, res) => {
   }
 };
 
+//index
+
 module.exports = {
   getAllBouquets,
   getByIdBouquet,
