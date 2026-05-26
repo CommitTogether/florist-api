@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  // url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model bouquet {
@@ -23,12 +23,10 @@ model Order {
 }
 
 model User {
-  id  Int   @id @default(autoincrement())
-  email   String
-  name    String
-  password    String
-  createsAt DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  totalHarga    Int
-  status        String @default("PENDING")
+  id        Int      @id @default(autoincrement())
+  email     String   @unique  
+  name      String
+  password  String
+  createdAt DateTime @default(now())  
+  updatedAt DateTime @updatedAt
 }
