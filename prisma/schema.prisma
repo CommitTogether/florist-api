@@ -13,6 +13,8 @@ model bouquet {
   harga     Int
   stok      Int
   deskripsi String?
+  categoryId  Int
+  category    category @relation(fields: [categoryId], references: [id])
 }
 
 model Order {
@@ -29,4 +31,10 @@ model User {
   password  String
   createdAt DateTime @default(now())  
   updatedAt DateTime @updatedAt
+}
+
+model category {
+  id    Int   @id @default(autoincrement())
+  name_category  String
+  bouquets    bouquet[]
 }
