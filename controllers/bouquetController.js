@@ -8,10 +8,16 @@ const getAllBouquets = async (req, res) => {
     const bouquets = await prisma.bouquet.findMany({
       include: { category: true },
     });
+
+    const formattedBouquets = bouquets.map(bouquet => {
+      const { categoryId, ...rest } = bouquet;
+      return rest;
+    });
+
     res.status(200).json({
       status: "success",
       message: "Data berhasil diambil",
-      data: bouquets,
+      data: formattedBouquets,
     });
   } catch (error) {
     res.status(500).json({
@@ -38,10 +44,12 @@ const getByIdBouquet = async (req, res) => {
       });
     }
 
+    const { categoryId, ...formattedBouquet } = bouquet;
+
     res.status(200).json({
       status: "success",
       message: "Data berhasil diambil",
-      data: bouquet,
+      data: formattedBouquet,
     });
   } catch (error) {
     res.status(500).json({
