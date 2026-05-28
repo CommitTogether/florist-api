@@ -42,7 +42,7 @@ const showCategory = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "Failed to restrieve data",
+      message: "Failed to retrieve data",
       error: error.message,
     });
   }
@@ -55,15 +55,15 @@ const createCategory = async (req, res) => {
     const category = await prisma.category.create({
       data: { name_category },
     });
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
-      message: "The data was successfully created",
+      message: "Data created successfully",
       data: category,
     });
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "failed to create data",
+      message: "Failed to create data",
       error: error.message,
     });
   }
@@ -79,13 +79,13 @@ const updateCategory = async (req, res) => {
     });
     res.status(200).json({
       status: "success",
-      message: "The data was successfully updated",
+      message: "Data updated successfully",
       data: category,
     });
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "data failed tp update",
+      message: "Failed to update data",
       error: error.message,
     });
   }
@@ -98,14 +98,14 @@ const deleteCategory = async (req, res) => {
       where: { id: Number(req.params.id) },
     });
     res.status(200).json({
-      status: "succes",
-      message: "data was succesfully deleted",
+      status: "success",
+      message: "Data deleted successfully",
       data: category,
     });
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "data failed to delete",
+      message: "Failed to delete data",
       error: error.message,
     });
   }
